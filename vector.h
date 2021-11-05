@@ -24,8 +24,8 @@ public:
         for (int i=0; i < size_v; ++i), elem[i] = 0;    // initializing elements
     }
 
-     // copy constructor, 
-    vector(const vector& other) :  size_v{ other.size() }, space{ other.capacity() }
+     // copy constructor, uses other vector's size and capacity to determine current vector
+    vector(const vector& other) :  size_v{other.size()}, space{other.capacity()}
             {
                 elem = new T[other.capacity()];
                 for (int i = 0; i < size_v; i++)
