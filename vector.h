@@ -57,7 +57,7 @@ public:
        other.elem = nullptr;
    }
      
-   vector& operator=vector(const vector&& other)  // move assignment
+   vector& operator=vector(const vector&& other) noexcept // move assignment
    {
        if (this != &other)
        {
