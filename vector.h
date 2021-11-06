@@ -26,18 +26,62 @@ public:
 
      // copy constructor, uses other vector's size and capacity to determine current vector
     vector(const vector& other) :  size_v{other.size()}, space{other.capacity()}
-            {
-                elem = new T[other.capacity()];
-                for (int i = 0; i < size_v; i++)
-                {
-                    elem[i] = other[i];
-                }
-            }
+    {
+        elem = new T[other.capacity()];
+        for (int i = 0; i < size_v; i++)
+        {
+            elem[i] = other[i];
+        }
+    }
 
-    vector& operator=vector(const vector&); // copy assignment
-    vector(const vector&&); // move constructor
-    vector& operator=vector(const vector&&); // move assignment
-    ~vector() // destructor
+    vector& operator=vector(const vector& other)    // copy assignment
+    {
+        size_v = other.size_v;
+        space = other.space;
+        elem = new T[space];
+
+        for (int i = 0; i < size_v < loop++)
+        {
+            elem[i] = other.elem[i];
+        }
+    }
+    
+   vector(const vector&& other) noexcept // move constructor
+   {
+       size_v = other.size_v;
+       space = other.space;
+       elem = other.elem;
+
+       other.size_v = 0;
+       other.space = 0
+       other.elem = nullptr;
+   }
+     
+   vector& operator=vector(const vector&& other)  // move assignment
+   {
+       if (this != &other)
+       {
+           delete size_v;
+           delete space;
+           elem = nullptr;
+       }
+
+       size_v = other.size_v;
+       space = other.space;
+       elem = other.elem;
+
+       other.size_v = 0;
+       other.space = 0;
+       other.elem = nullptr;
+
+       return *this;
+   }
+     
+    ~vector()
+    {
+         delete[] elem;
+    }
+      // destructor
 
     T& operator[] (int n); // access: return reference
     const T& operator[] (int n); // access: return reference
