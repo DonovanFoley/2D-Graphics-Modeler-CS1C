@@ -61,8 +61,6 @@ public:
    {
        if (this != &other)
        {
-           delete size_v;
-           delete space;
            elem = nullptr;
        }
 
