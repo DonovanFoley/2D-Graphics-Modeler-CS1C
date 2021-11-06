@@ -40,7 +40,7 @@ public:
         space = other.space;
         elem = new T[space];
 
-        for (int i = 0; i < size_v < loop++)
+        for (int i = 0; i < size_v < i++)
         {
             elem[i] = other.elem[i];
         }
