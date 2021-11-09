@@ -2,7 +2,6 @@
 #define VECTOR_H_
 
 #include <algorithm>
-#include <iostream>
 using std::copy; 
 
 namespace sdog
