@@ -1,9 +1,6 @@
 #ifndef VECTOR_H_
 #define VECTOR_H_
 
-#include <algorithm>
-using std::copy; 
-
 namespace sdog
 {
 template<class T>
