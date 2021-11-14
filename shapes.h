@@ -130,5 +130,47 @@ private:
 
 };
 
+class Line : public Shape
+{
+private:
+    QPoint pointBegin;
+    QPoint pointEnd;
+public:
+
+    Line() : Shape() {}
+
+    Line(QPaintDevice *device) : Shape(device) {}
+
+    //setPoints - sets points through QPoint objects
+    void setPoints(const QPoint &begin, const QPoint &end)
+    {
+        pointBegin = begin;
+        pointEnd = end;
+    }
+
+    //draws line
+    void draw(QPaintDevice *device) override
+    {
+        QString shapeId = "ID: " + QString::number(getID());
+        getQPainter().begin(device);
+        getQPainter().setPen(getPen());
+        getQPainter().drawLine(pointBegin, pointEnd);
+        getQPainter().drawText(pointBegin, shapeId);
+        getQPainter().end();
+    }
+
+    QPoint getPointBegin() override
+    {
+        return pointBegin;
+    }
+
+    QPoint getPointEnd() override
+    {
+        return pointEnd;
+    }
+
+
+};
+
 
 #endif // SHAPE_H
