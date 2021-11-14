@@ -1,7 +1,6 @@
 #ifndef SHAPE_H
 #define SHAPE_H
 
-
 #include <QObject>
 #include <QPainter>
 #include <QWidget>
@@ -17,7 +16,7 @@ const QString FILE_PATH = "C:/Users/Adit/Desktop/CS1C Project";
 using namespace Qt;
 using namespace sdog;
 
-//********SHAPE ABC***********
+//********SHAPE ABC**********
 class Shape : public QPainter
 {   
 public:
@@ -105,13 +104,18 @@ public:
     }
 
     //pure virtual function - draws shape for every subclass
-    virtual void draw(QPaintDevice *device, const int x = 0, const int y = 0) = 0;
+    virtual void draw(QPaintDevice *device) = 0;
 
     //get beginning and ends of points for the shape renders
     virtual QPoint getPointBegin() { return QPoint(0,0); }
     virtual QPoint getPointEnd() { return QPoint(0,0); }
 
     virtual vector<QPoint>& getPoints() {return vect;}
+
+    virtual double perimeter() const = 0;
+
+    virtual double area() const = 0;
+
 
 protected:
     QPainter & getQPainter()
@@ -130,6 +134,7 @@ private:
 
 };
 
+//*******LINE CLASS******
 class Line : public Shape
 {
 private:
@@ -207,7 +212,7 @@ public:
 
 };
 
-/***********POLYGON CLASS************/
+/******POLYGON CLASS*****/
 class Polygon : public Shape
 {
 private:
@@ -249,8 +254,6 @@ insert rectangle, square, ellipse, circle, text here
 *
 *
 */
-
-
 
 
 #endif // SHAPE_H
