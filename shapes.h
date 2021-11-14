@@ -17,7 +17,7 @@ const QString FILE_PATH = "C:/Users/Adit/Desktop/CS1C Project";
 using namespace Qt;
 using namespace sdog;
 
-//Shape ABC
+//********SHAPE ABC***********
 class Shape : public QPainter
 {   
 public:
@@ -130,6 +130,7 @@ private:
 
 };
 
+//*******LINE CLASS*******
 class Line : public Shape
 {
 private:
@@ -154,6 +155,7 @@ public:
         QString shapeId = "ID: " + QString::number(getID());
         getQPainter().begin(device);
         getQPainter().setPen(getPen());
+        getQPainter().setBrush(getBrush());
         getQPainter().drawLine(pointBegin, pointEnd);
         getQPainter().drawText(pointBegin, shapeId);
         getQPainter().end();
@@ -171,6 +173,40 @@ public:
 
 
 };
+
+//******POLYLINE CLASS********
+class Polyline : public Shape
+{
+private:
+    vector <QPoint> points;
+public:
+    Polyline() : Shape() {}
+
+    Polyline(QPaintDevice *device) : Shape(device) {}
+
+    ~Polyline() override {}
+
+    //adds a point to vector that is used to make polyline (QPoint passed in)
+    void setPoints(const QPoint &point)
+    {
+        points.push_back(point);
+        return;
+    }
+
+    //draws polyline
+    void draw(QPaintDevice *device) override
+    {
+        QString shapeId = "ID: " + QString::number(getID());
+        getQPainter().begin(device);
+        getQPainter().setPen(getPen());
+        getQPainter().drawPolyline(points.begin(), points.size());
+        getQPainter().end();
+    }
+
+    vector<QPoint>& getPoints() override {return points;};
+
+};
+
 
 
 #endif // SHAPE_H
