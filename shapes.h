@@ -130,7 +130,6 @@ private:
 
 };
 
-//*******LINE CLASS*******
 class Line : public Shape
 {
 private:
@@ -199,6 +198,7 @@ public:
         QString shapeId = "ID: " + QString::number(getID());
         getQPainter().begin(device);
         getQPainter().setPen(getPen());
+        getQPainter().setBrush(getBrush());
         getQPainter().drawPolyline(points.begin(), points.size());
         getQPainter().end();
     }
@@ -206,6 +206,50 @@ public:
     vector<QPoint>& getPoints() override {return points;};
 
 };
+
+/***********POLYGON CLASS************/
+class Polygon : public Shape
+{
+private:
+    vector <QPoint> points;
+
+public:
+    Polygon() : Shape() {}
+
+    Polygon(QPaintDevice* device) : Shape(device) {}
+
+    ~Polygon() override {}
+
+    //adds point to vector used for polygon
+    void setPoints(const QPoint& point)
+    {
+        points.push_back(point);
+    }
+
+
+    void draw(QPaintDevice* device) override
+    {
+        QString shapeId = "ID: " + QString::number(getID());
+        getQPainter().begin(device);
+        getQPainter().setPen(getPen());
+        getQPainter().setBrush(getBrush());
+        getQPainter().drawPolygon(points.begin(), points.size());
+        getQPainter().end();
+    }
+
+    vector<QPoint>& getPoints() override {return points;}
+
+};
+
+/*
+*
+*
+insert rectangle, square, ellipse, circle, text here
+*
+*
+*
+*/
+
 
 
 
