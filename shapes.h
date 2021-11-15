@@ -282,7 +282,7 @@ public:
         QString shapeId = "ID: " + QString::number(getID());
         getQPainter().begin(device);
         getQPainter().setPen(getPen());
-		getQPainter().setBrush(getBrush());
+	getQPainter().setBrush(getBrush());
         getQPainter().drawRect(xpos, ypos, width, height);
         getQPainter().end();
     }
