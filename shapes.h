@@ -246,10 +246,125 @@ public:
 
 };
 
+//*******RECTANGLE CLASS*******
+class Rectangle : public Shape
+{
+private:
+    int xpos;
+    int ypos;
+    int width;
+    int height;
+
+public:
+
+    Rectangle() : Shape() {}
+
+    Rectangle(QPaintDevice *device) : Shape(device) {}
+
+    void setRectStart(int xCoord, int yCoord)
+    {
+        xpos = xCoord;
+        ypos = yCoord;
+    }
+
+    void setWidth(int newWidth)
+    {
+        width = newWidth;
+    }
+
+    void setHeight(int newHeight)
+    {
+        height = newHeight;
+    }
+
+    void draw(QPaintDevice *device) override
+    {
+        QString shapeId = "ID: " + QString::number(getID());
+        getQPainter().begin(device);
+        getQPainter().setPen(getPen());
+		getQPainter().setBrush(getBrush());
+        getQPainter().drawRect(xpos, ypos, width, height);
+        getQPainter().end();
+    }
+
+    int getXCoord()
+    {
+        return xpos;
+    }
+
+    int getYCoord()
+    {
+        return ypos;
+    }
+
+    int getWidth()
+    {
+        return width;
+    }
+
+    int getHeight()
+    {
+        return height;
+    }
+};
+
+//*******SQUARE CLASS*******
+class Square : public Shape
+{
+private:
+    int xpos;
+    int ypos;
+    int width;
+    int height;
+
+public:
+
+    Square() : Shape() {}
+
+    Square(QPaintDevice *device) : Shape(device) {}
+
+    void setSquareStart(int xCoord, int yCoord)
+    {
+        xpos = xCoord;
+        ypos = yCoord;
+    }
+
+    void setSideLength(int side)
+    {
+        width = side;
+        height = width;
+    }
+
+    void draw(QPaintDevice *device) override
+    {
+        QString shapeId = "ID: " + QString::number(getID());
+        getQPainter().begin(device);
+        getQPainter().setPen(getPen());
+        getQPainter().setBrush(getBrush());
+        getQPainter().drawRect(xpos, ypos, width, height);
+        getQPainter().end();
+    }
+
+    int getXCoord()
+    {
+        return xpos;
+    }
+
+    int getYCoord()
+    {
+        return ypos;
+    }
+
+    int getSideLength()
+    {
+        return width;
+    }
+};
+
 /*
 *
 *
-insert rectangle, square, ellipse, circle, text here
+insert ellipse, circle, text here
 *
 *
 *
