@@ -476,14 +476,71 @@ public:
     }
 };
 
-/*
-*
-*
-text class here
-*
-*
-*
-*/
+//******TEXT CLASS********
+class Text : public Shape
+{
+private:
+
+    // Text properties: alignment (right, left, etc)
+    //                  color, string to print, font, etc...
+    QString TextString;
+    QColor TextColor;
+    Qt::AlignmentFlag TextAlignment;
+    QFont::Style TextFontStyle;
+    QString TextFontFamily;
+    QFont::Weight TextFontWeight;
+    int TextPointSize;
+
+    QPoint begin;
+    int height;
+    int width;
+
+public:
+
+    Text() : Shape() {}
+
+    Text(QPaintDevice *device) : Shape(device) {}
+
+    ~Text() override {};
+
+    // Set beginning point of text box
+    void setPoint(const QPoint& point)
+    {
+        begin = point;
+    }
+
+    // Set string of text
+    void setTextString(const QString& inString)
+    {
+        TextString = inString;
+    }
+
+    // Set length and width of text box
+    void setTextBox(const int &inHeight, const int& inWidth)
+    {
+        height = inHeight;
+        width = inWidth;
+    }
+
+    // Set all values of Text shape
+    void setTextShape(const int inHeight, const int tWidth, const QString tString, const QColor tClr,
+                      const Qt::AlignmentFlag tAlign, const int tpSize, const QString tFont,
+                      const QFont::Style tStyle, const QFont::Weight tWeight);
+
+
+    void draw(QPaintDevice* device) override
+    {
+        QString idStr = "ID: " + QString::number(getId());
+        getQPainter().begin(device);
+        getQPainter().setPen(color);
+        getQPainter().setFont(font);
+        getQPainter().save();   // push current data onto stack
+
+    }
+
+};
+
+
 
 
 #endif // SHAPE_H
