@@ -361,10 +361,125 @@ public:
     }
 };
 
+//*******CIRCLE CLASS*******
+class Circle : public Shape
+{
+private:
+    int xpos;
+    int ypos;
+    int height;
+    int width;
+
+public:
+
+    Circle() : Shape() {}
+
+    Circle(QPaintDevice *device) : Shape(device) {}
+
+    void setCircleStart(int xCoord, int yCoord)
+    {
+        xpos = xCoord;
+        ypos = yCoord;
+    }
+
+    void setRadius(int radius)
+    {
+        width = radius;
+        height = radius;
+    }
+
+    void draw(QPaintDevice *device) override
+    {
+        QString shapeId = "ID: " + QString::number(getID());
+        getQPainter().begin(device);
+        getQPainter().setPen(getPen());
+        getQPainter().setBrush(getBrush());
+        getQPainter().drawEllipse(xpos, ypos, width, height);
+        getQPainter().end();
+    }
+
+    int getXCoord()
+    {
+        return xpos;
+    }
+
+    int getYCoord()
+    {
+        return ypos;
+    }
+
+    int getRadius()
+    {
+        return width;
+    }
+};
+
+//*******ELLIPSE CLASS*******
+class Ellipse : public Shape
+{
+private:
+    int xpos;
+    int ypos;
+    int height;
+    int width;
+
+public:
+
+    Ellipse() : Shape() {}
+
+    Ellipse(QPaintDevice *device) : Shape(device) {}
+
+    void setEllipseStart(int xCoord, int yCoord)
+    {
+        xpos = xCoord;
+        ypos = yCoord;
+    }
+
+    void setHeight(int newHeight)
+    {
+        height = newHeight;
+    }
+
+    void setWidth(int newWidth)
+    {
+        width = newWidth;
+    }
+
+    void draw(QPaintDevice *device) override
+    {
+        QString shapeId = "ID: " + QString::number(getID());
+        getQPainter().begin(device);
+        getQPainter().setPen(getPen());
+        getQPainter().setBrush(getBrush());
+        getQPainter().drawEllipse(xpos, ypos, width, height);
+        getQPainter().end();
+    }
+
+    int getXCoord()
+    {
+        return xpos;
+    }
+
+    int getYCoord()
+    {
+        return ypos;
+    }
+
+    int getHeight()
+    {
+        return height;
+    }
+
+    int getWidth()
+    {
+        return width;
+    }
+};
+
 /*
 *
 *
-insert ellipse, circle, text here
+text class here
 *
 *
 *
