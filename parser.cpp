@@ -21,6 +21,15 @@ void sdParser(QString filename) {
         QString penStyle;
         QString penCapStyle;
         QString penJoinStyle;
+        QString brushColor;
+        QString brushStyle;
+        QString textString;
+        QString textColor;
+        QString textAlignment;
+        int textPointSize;
+        QString textFontFamily;
+        QString textFontStyle;
+        QString textFontWeight;
     };
 
     Data blockData[BLOCK_MAX];
@@ -43,12 +52,12 @@ void sdParser(QString filename) {
     QTextStream stream(&file);
 
     //Parses data
-    int lineTrack = 0;
     int blockTrack = 0;
+    int lineTrack = 0;
     while (!stream.atEnd()) {
         QString line = stream.readLine();
 
-        if (line.startsWith("ShapeID:")) {
+        if (line.startsWith("ShapeId:")) {
             line = line.mid(9);
             blockData[blockTrack].shapeID = line.toInt();
             line = file.readLine();
@@ -91,30 +100,79 @@ void sdParser(QString filename) {
             line = file.readLine();
         }
 
+        //Won't read this for some reason
         else if (line.startsWith("PenJoinStyle:")) {
             line = line.mid(14);
             blockData[blockTrack].penJoinStyle = line;
             line = file.readLine();
         }
-        qInfo() << "Data for line " << lineTrack << "parsed...";
 
+        else if (line.startsWith("BrushColor:")) {
+            line = line.mid(12);
+            blockData[blockTrack].brushColor = line;
+            line = file.readLine();
+        }
+
+        else if (line.startsWith("BrushStyle:")) {
+            line = line.mid(12);
+            blockData[blockTrack].brushStyle = line;
+            line = file.readLine();
+        }
+
+        else if (line.startsWith("TextString:")) {
+            line = line.mid(12);
+            blockData[blockTrack].textString = line;
+            line = file.readLine();
+        }
+
+        else if (line.startsWith("TextColor:")) {
+            line = line.mid(11);
+            blockData[blockTrack].textColor = line;
+            line = file.readLine();
+        }
+
+        else if (line.startsWith("TextPointSize:")) {
+            line = line.mid(15);
+            blockData[blockTrack].textPointSize = line.toInt();
+            line = file.readLine();
+        }
+
+        else if (line.startsWith("TextFontFamily:")) {
+            line = line.mid(16);
+            blockData[blockTrack].textFontFamily = line;
+            line = file.readLine();
+        }
+
+        else if (line.startsWith("TextFontStyle:")) {
+            line = line.mid(15);
+            blockData[blockTrack].textFontStyle = line;
+            line = file.readLine();
+        }
+
+        else if (line.startsWith("TextFontWeight:")) {
+            line = line.mid(16);
+            blockData[blockTrack].textFontWeight = line;
+            line = file.readLine();
+        }
         lineTrack++;
+
         if (lineTrack == 8) {
-            blockTrack++;
             lineTrack = 0;
+            qInfo() << "Data for Block " << blockTrack << " parsed...";
+            blockTrack++;
         }
     }
 
     qInfo() << "Data successfully parsed!";
 
     qInfo() << "Validating that data was parsed correctly...";
-    qInfo() << "Outputting data parsed from Block 1 to console...";
-    qInfo() << blockData[1].shapeID;
-    qInfo() << blockData[1].shapeType;
-    qInfo() << blockData[1].penCapStyle;
-    qInfo() << blockData[1].penJoinStyle;
-    qInfo() << blockData[1].penWidth;
-    qInfo() << "Check that this data matches Block 1's in shapes.txt";
+    qInfo() << "Outputting data parsed from Block 0 to console...";
+    qInfo() << blockData[0].shapeID;
+    qInfo() << blockData[0].shapeType;
+    qInfo() << blockData[0].penCapStyle;
+    qInfo() << blockData[0].penJoinStyle;
+    qInfo() << blockData[0].penWidth;
+    qInfo() << "Check that this data matches Block 0's in shapes.txt";
 }
 
 int main(int argc, char* argv[])
