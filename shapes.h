@@ -8,6 +8,7 @@
 #include <QPen>
 #include <QFont>
 #include <Qt>
+#include <QRect>
 #include "vector.h"
 #include <string>
 
@@ -479,10 +480,20 @@ public:
 //******TEXT CLASS********
 class Text : public Shape
 {
-private:
-
     // Text properties: alignment (right, left, etc)
     //                  color, string to print, font, etc...
+    //======================================================
+private:
+    // coords for top left point of text box
+    int tx;
+    int ty;
+    // coords for bottom right point of text box
+    int bx;
+    int by;
+
+    QRect textbox;      // creates a null rectangle
+    QFont fontobj; // need seperate object to pass values to for QFont functions
+
     QString TextString;
     QColor TextColor;
     Qt::AlignmentFlag TextAlignment;
@@ -491,10 +502,9 @@ private:
     QFont::Weight TextFontWeight;
     int TextPointSize;
 
-    QPoint begin;
-    int height;
-    int width;
-
+    // PMF's:
+    // Setters and draw functions.
+    //======================================================
 public:
 
     Text() : Shape() {}
@@ -503,10 +513,12 @@ public:
 
     ~Text() override {};
 
-    // Set beginning point of text box
-    void setPoint(const QPoint& point)
+    // Setters:
+    //===========================
+    // Set length and width of text box
+    void setTextBox(const int& tx, const int& ty, const int &bx, const int& by)
     {
-        begin = point;
+        textbox.setCoords(tx, ty, bx, by);
     }
 
     // Set string of text
@@ -514,30 +526,83 @@ public:
     {
         TextString = inString;
     }
-
-    // Set length and width of text box
-    void setTextBox(const int &inHeight, const int& inWidth)
-    {
-        height = inHeight;
-        width = inWidth;
-    }
+    //____________________________________________________
 
     // Set all values of Text shape
-    void setTextShape(const int inHeight, const int tWidth, const QString tString, const QColor tClr,
+    void setTextShape(const QRect& rO, const int tx, const int ty, const int bx, const int by, const QString tString, const QColor tClr,
                       const Qt::AlignmentFlag tAlign, const int tpSize, const QString tFont,
-                      const QFont::Style tStyle, const QFont::Weight tWeight);
+                      const QFont::Style tStyle, const QFont::Weight tWeight)
+    {
+        textbox = rO;
+        this->tx = tx;
+        this->ty = ty;
+        this->bx = bx;
+        this->by = by;
 
+        textbox.setCoords(tx, ty, bx, by);
+
+        TextString = tString;
+        TextColor = tClr;
+        TextAlignment = tAlign;
+        TextPointSize = tpSize;
+        TextFontFamily = tFont;
+        TextFontStyle = tStyle;
+        TextFontWeight = tWeight;
+
+        // specifically for font to print
+        fontobj.setPointSize(TextPointSize);
+        fontobj.setFamily(TextFontFamily);
+        fontobj.setStyle(TextFontStyle);
+        fontobj.setWeight(TextFontWeight);
+
+    };
+    //____________________________________________________
+
+    // Getters:
+    //===========================
+    QRect getRect()
+    {
+        return textbox;
+    }
+    int getX1Coord()
+    {
+        return tx;
+    }
+
+    int getY1Coord()
+    {
+        return ty;
+    }
+    int getX2Coord()
+    {
+        return bx;
+    }
+
+    int getY2Coord()
+    {
+        return by;
+    }
+    QString getTextString()
+    {
+        return TextString;
+    }
+    //____________________________________________________
 
     void draw(QPaintDevice* device) override
     {
-        QString idStr = "ID: " + QString::number(getId());
+        QString idStr = "ID: " + QString::number(getID());
         getQPainter().begin(device);
-        getQPainter().setPen(color);
-        getQPainter().setFont(font);
+        getQPainter().setPen(TextColor);
+        getQPainter().setFont(fontobj);
         getQPainter().save();   // push current data onto stack
 
-    }
+        // Drawing text:
+        getQPainter().drawText(textbox, TextAlignment, TextString);
+        getQPainter().setPen(QColor(Qt::GlobalColor::black)); // set color to rgb: 0,0,0
 
+        getQPainter().restore();
+        getQPainter().end();    // pop / unwind stack
+    }
 };
 
 
