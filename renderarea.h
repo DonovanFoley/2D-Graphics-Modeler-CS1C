@@ -39,24 +39,6 @@ private:
 
     void readShapeFile();
 
-   QString getStringColor(QColor color);
-   QString getStringPenCap(Qt::PenCapStyle penCapStyle);
-   QString getStringPenStyle(Qt::PenStyle penStyle);
-   QString getStringPenJointStyle(Qt::PenJoinStyle penJointStyle);
-   QString getStringBrush(Qt::BrushStyle brush);
-   QString getStringFlag(Qt::AlignmentFlag  flag);
-   QString getStringFontStyle(QFont::Style fontStyle);
-   QString getStringFontWeight(int fontWeight);
-
-   Shape::ShapeTypes getShapeType(QString shape);
-   Qt::GlobalColor   getColor(QString color);
-   Qt::PenCapStyle   getPenCapStyle(QString cap);
-   Qt::PenStyle      getPenStyle(QString pen);
-   Qt::PenJoinStyle  getPenJointStyle(QString penJoint);
-   Qt::BrushStyle    getBrushStyle(QString brushStyle);
-   Qt::AlignmentFlag getFlag(QString flag);
-   QFont::Style      getFontStyle(QString fontStyle);
-   QFont::Weight     getFontWeight(QString fontWeight);
 
 
 };
