@@ -21,9 +21,9 @@ class RenderArea : public QWidget
     QSize minimumSizeHint() const {return QSize(1000, 500);}
 
     //to get shapes info
-    const vector<Shape*>& getShapes() {return shapeMag;}
+    const vector<Shape*>& getShapes() {return shapeVector;}
 
-    int getSize() {return shapeMag.size(); }
+    int getSize() {return shapeVector.size(); }
     int getNumShapesRenderArea() {return numShapesRenderArea;}
 
     //functions to modify shapes
@@ -34,7 +34,7 @@ class RenderArea : public QWidget
 
 private:
     const QImage renderArea;
-    sdog::vector<Shape*> shapeMag;
+    sdog::vector<Shape*> shapeVector;
     int numShapesRenderArea;
 
     void readShapeFile();
