@@ -2,7 +2,7 @@
 #include "ui_secdialog.h"
 
 secDialog::secDialog(QWidget *parent) :
-    QDialog(parent),
+    QMainWindow(parent),
     ui(new Ui::secDialog)
 {
     ui->setupUi(this);
