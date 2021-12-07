@@ -31,14 +31,13 @@ class RenderArea : public QWidget
 
     void cutShape(int inRemove);
     void moveShape(int inMove, int coordMove, int x, int y);
+    
+     void readShapeFile();
 
 private:
     const QImage renderArea;
     sdog::vector<Shape*> shapeVector;
     int numShapesRenderArea;
-
-    void readShapeFile();
-
 
 
 };
