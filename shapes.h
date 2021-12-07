@@ -31,6 +31,8 @@ public:
         brush = Qt::NoBrush;                // default brush type - no brush pattern (use Qt::SolidPattern for uniform color)
     }
 
+    //add copy operations
+
     Shape(QPaintDevice *device) : qpainter(device)
     {
         id = -1;
@@ -39,7 +41,7 @@ public:
         brush = Qt::NoBrush;
     }
 
-    virtual ~Shape();
+    virtual ~Shape() {}
 
     /*****GETTERS*****/
     //returns Shape ID
@@ -113,9 +115,9 @@ public:
 
     virtual vector<QPoint>& getPoints() {return vect;}
 
-    virtual double perimeter() const = 0;
+    //virtual double perimeter() const = 0;
 
-    virtual double area() const = 0;
+    //virtual double area() const = 0;
 
 
 protected:
@@ -143,9 +145,21 @@ private:
     QPoint pointEnd;
 public:
 
-    Line() : Shape() {}
+    Line() : Shape()
+    {
+        pointBegin.setX(0);
+        pointBegin.setY(0);
+        pointEnd.setX(10);
+        pointEnd.setY(10);
+    }
 
-    Line(QPaintDevice *device) : Shape(device) {}
+    Line(QPaintDevice *device) : Shape(device)
+    {
+        pointBegin.setX(0);
+        pointBegin.setY(0);
+        pointEnd.setX(10);
+        pointEnd.setY(10);
+    }
 
     //setPoints - sets points through QPoint objects
     void setPoints(const QPoint &begin, const QPoint &end)
