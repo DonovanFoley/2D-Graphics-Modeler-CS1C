@@ -1,13 +1,13 @@
 #ifndef SECDIALOG_H
 #define SECDIALOG_H
 
-#include <QDialog>
+#include <QMainWindow>
 
 namespace Ui {
 class secDialog;
 }
 
-class secDialog : public QDialog
+class secDialog : public QMainWindow
 {
     Q_OBJECT
 
