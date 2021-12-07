@@ -27,7 +27,7 @@ void MainWindow::on_pushButton_login_clicked()
         SecDialog = new secDialog(this);
         SecDialog->show();
     }
-    if (username == "admin" && password == "pass")
+    else if (username == "admin" && password == "pass")
     {
         QMessageBox::information(this, "Login", "Admin login enabled.");
         adminLog = true;    // will be used later in order to enable admin privileges
