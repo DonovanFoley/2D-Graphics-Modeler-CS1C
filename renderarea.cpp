@@ -20,15 +20,20 @@ void RenderArea::paintEvent(QPaintEvent *event)
     QPainter painter(this);
 
     //demo shapes - idk where we would make the shapes
-    QPoint pointA;
-    QPoint pointB;
-    pointA.setX(0);
-    pointA.setY(10);
-    pointB.setX(0);
-    pointB.setY(10);
-    Line line;
-    line.setPoints(pointA, pointB);
-    line.draw(device);
+    //QPoint pointA;
+    //QPoint pointB;
+    //pointA.setX(0);
+    //pointA.setY(10);
+    //pointB.setX(0);
+    //pointB.setY(10);
+    //Line line;
+    //line.setPoints(pointA, pointB);
+    //line.draw(device);
+    Rectangle rectangle;
+    rectangle.setRectStart(10, 10);
+    rectangle.setWidth(200);
+    rectangle.setHeight(100);
+    rectangle.draw(device);
 
 }
 
@@ -41,7 +46,7 @@ void RenderArea::addShape(Shape *shapeIn)
 void RenderArea::cutShape(int inRemove)
 {
     sdog::vector<Shape*>::iterator i;
-    
+
     for (i = shapeMag.begin(); i < shapeMag.end(); ++i)
     {
         if((*i)->getID() == inRemove)
@@ -51,7 +56,7 @@ void RenderArea::cutShape(int inRemove)
             break;
         }
     }
-    
+
 }
 
 void RenderArea::moveShape(int inMove, int coordMove, int x, int y)
@@ -65,5 +70,3 @@ void RenderArea::moveShape(int inMove, int coordMove, int x, int y)
         }
     }
 }
-
-
