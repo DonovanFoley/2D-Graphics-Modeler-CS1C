@@ -108,6 +108,8 @@ public:
 
     //pure virtual function - draws shape for every subclass
     virtual void draw(QPaintDevice *device) = 0;
+    
+    virtual void move(int x, int y, int coord) = 0;
 
     //get beginning and ends of points for the shape renders
     virtual QPoint getPointBegin() { return QPoint(0,0); }
@@ -176,6 +178,22 @@ public:
         getQPainter().drawLine(pointBegin, pointEnd);
         getQPainter().drawText(pointBegin, shapeId);
         getQPainter().end();
+    }
+    
+    void move(int x, int y, int coord) override
+    {
+        QPoint point(x, y);
+
+        if (coord == 1)
+        {
+            pointBegin = point;
+        }
+        else if (coord == 2)
+        {
+            pointEnd = point;
+        }
+
+        getQPainter().drawLine(pointBegin, pointEnd);
     }
 
     QPoint getPointBegin() override
