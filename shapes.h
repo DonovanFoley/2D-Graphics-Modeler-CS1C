@@ -19,7 +19,7 @@ using namespace sdog;
 
 //********SHAPE ABC**********
 class Shape : public QPainter
-{   
+{
 public:
     enum ShapeTypes {blank, line, polyline, polygon, rectangle, square, ellipse, circle, text};
 
@@ -108,7 +108,7 @@ public:
 
     //pure virtual function - draws shape for every subclass
     virtual void draw(QPaintDevice *device) = 0;
-    
+
     virtual void move(int x, int y, int coord) = 0;
 
     //get beginning and ends of points for the shape renders
@@ -179,22 +179,6 @@ public:
         getQPainter().drawText(pointBegin, shapeId);
         getQPainter().end();
     }
-    
-    void move(int x, int y, int coord) override
-    {
-        QPoint point(x, y);
-
-        if (coord == 1)
-        {
-            pointBegin = point;
-        }
-        else if (coord == 2)
-        {
-            pointEnd = point;
-        }
-
-        getQPainter().drawLine(pointBegin, pointEnd);
-    }
 
     QPoint getPointBegin() override
     {
@@ -242,6 +226,12 @@ public:
         getQPainter().end();
     }
 
+    void move(int x, int y, int coord) override
+    {
+       QPoint point(x, y);
+       points[coord - 1] = point;
+    }
+
     vector<QPoint>& getPoints() override {return points;};
 
 };
@@ -280,6 +270,12 @@ public:
         getQPainter().end();
     }
 
+    void move(int x, int y, int coord) override
+    {
+       QPoint point(x, y);
+       points[coord - 1] = point;
+    }
+
     vector<QPoint>& getPoints() override {return points;}
 
 };
@@ -303,7 +299,7 @@ public:
         height = 10;
     }
 
-    Rectangle(QPaintDevice *device, int x, int y, int w, int h) : Shape(device)
+    Rectangle(int x, int y, int w, int h) : Shape()
     {
         xpos = x;
         ypos = y;
@@ -332,9 +328,16 @@ public:
         QString shapeId = "ID: " + QString::number(getID());
         getQPainter().begin(device);
         getQPainter().setPen(getPen());
-	getQPainter().setBrush(getBrush());
+        getQPainter().setBrush(getBrush());
         getQPainter().drawRect(xpos, ypos, width, height);
         getQPainter().end();
+    }
+
+    void move(int x, int y, int coord) override
+    {
+        xpos = x;
+        ypos = y;
+        getQPainter().drawRect(xpos, ypos, width, height);
     }
 
     int getXCoord()
@@ -407,6 +410,13 @@ public:
         getQPainter().end();
     }
 
+    void move(int x, int y, int coord) override
+    {
+        xpos = x;
+        ypos = y;
+        getQPainter().drawRect(xpos, ypos, width, height);
+    }
+
     int getXCoord()
     {
         return xpos;
@@ -470,14 +480,6 @@ public:
         getQPainter().setBrush(getBrush());
         getQPainter().drawEllipse(xpos, ypos, width, height);
         getQPainter().end();
-    }
-    
-    void move(int x, int y, int coord) override
-    {
-        xpos = x;
-        ypos = y;
-
-        getQPainter().drawEllipse(xpos, ypos, width, height);
     }
 
     int getXCoord()
@@ -548,15 +550,6 @@ public:
         getQPainter().drawEllipse(xpos, ypos, width, height);
         getQPainter().end();
     }
-    
-    
-    void move(int x, int y, int coord) override
-    {
-        xpos = x;
-        ypos = y;
-
-        getQPainter().drawEllipse(xpos, ypos, width, height);
-    }
 
     int getXCoord()
     {
@@ -610,6 +603,7 @@ private:
 public:
 
     Text() : Shape() {}
+
     Text(int id, int tx, int ty, int bx, int by,
          QString TextString, QColor TextColor,
          Qt::AlignmentFlag TextAlignment,
@@ -723,26 +717,6 @@ public:
 
         getQPainter().restore();
         getQPainter().end();    // pop / unwind stack
-    }
-    
-    void move(int x, int y, int coord) override
-    {
-//        int differenceX = tx - x;
-//        int differenceY = ty - y;
-
-        tx += x;
-        ty += x;
-        tx += y;
-        ty += y;
-
-        bx += x;
-        by += x;
-        bx += y;
-        by += y;
-
-
-        textbox.setCoords(tx, ty, bx, by);
-        getQPainter().drawText(textbox, TextAlignment, TextString);
     }
 };
 
