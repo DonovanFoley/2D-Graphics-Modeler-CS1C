@@ -725,6 +725,26 @@ public:
         getQPainter().restore();
         getQPainter().end();    // pop / unwind stack
     }
+    
+    void move(int x, int y, int coord) override
+    {
+//        int differenceX = tx - x;
+//        int differenceY = ty - y;
+
+        tx += x;
+        ty += x;
+        tx += y;
+        ty += y;
+
+        bx += x;
+        by += x;
+        bx += y;
+        by += y;
+
+
+        textbox.setCoords(tx, ty, bx, by);
+        getQPainter().drawText(textbox, TextAlignment, TextString);
+    }
 };
 
 
