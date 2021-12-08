@@ -207,7 +207,7 @@ public:
     ~Polyline() override {}
 
     //adds a point to vector that is used to make polyline (QPoint passed in)
-    void setPoints(const QPoint &point)
+    void setPoints(QPoint &point)
     {
         points.push_back(point);
         return;
