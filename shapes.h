@@ -610,7 +610,6 @@ private:
 public:
 
     Text() : Shape() {}
-    Text() : Shape() {}
     Text(int id, int tx, int ty, int bx, int by,
          QString TextString, QColor TextColor,
          Qt::AlignmentFlag TextAlignment,
