@@ -153,12 +153,10 @@ public:
         pointEnd.setY(10);
     }
 
-    Line(QPaintDevice *device) : Shape(device)
+    Line(QPaintDevice *device, QPoint _pointBegin, QPoint _pointEnd) : Shape(device)
     {
-        pointBegin.setX(0);
-        pointBegin.setY(0);
-        pointEnd.setX(10);
-        pointEnd.setY(10);
+        pointBegin = _pointBegin;
+        pointEnd = _pointEnd;
     }
 
     //setPoints - sets points through QPoint objects
