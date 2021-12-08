@@ -199,7 +199,10 @@ private:
 public:
     Polyline() : Shape() {}
 
-    Polyline(QPaintDevice *device) : Shape(device) {}
+    Polyline(QPaintDevice *device, const QPoint& point) : Shape(device)
+    {
+        points.push_back(point);
+    }
 
     ~Polyline() override {}
 
