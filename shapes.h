@@ -76,7 +76,7 @@ public:
 
     //sets QPen - uses Qt::GlobalColor (constructs color based on val, Qt::GlobalColor uses predefined QColor objects), width, Qt::PenStyle, Qt::PenCapStyle, and Qt::PenJoinStyle based on arguments passed in from file
     // uses values passed in for QPen setters to set pen types
-    void setPen(Qt::GlobalColor color, int width, Qt::PenStyle style, Qt::PenCapStyle penCap, Qt::PenJoinStyle penJoin)
+    void setPen(QColor color, int width, Qt::PenStyle style, Qt::PenCapStyle penCap, Qt::PenJoinStyle penJoin)
     {
         pen.setColor(color);
         pen.setWidth(width);
@@ -161,6 +161,14 @@ public:
         pointEnd = _pointEnd;
     }
 
+    // contructor to use with parser
+    Line(QPoint& x, QPoint& y, QPen& pen, int id)
+    {
+        setID(id);
+        setPen(pen.color(), pen.width(), pen.style(), pen.capStyle(), pen.joinStyle());
+        setPoints(x, y);
+    }
+
     //setPoints - sets points through QPoint objects
     void setPoints(const QPoint &begin, const QPoint &end)
     {
@@ -179,7 +187,7 @@ public:
         getQPainter().drawText(pointBegin, shapeId);
         getQPainter().end();
     }
-    
+
     void move(int x, int y, int coord) override
     {
         QPoint point;
