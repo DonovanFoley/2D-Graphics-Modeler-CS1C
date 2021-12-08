@@ -155,7 +155,7 @@ public:
         pointEnd.setY(10);
     }
 
-    Line(QPaintDevice *device, QPoint _pointBegin, QPoint _pointEnd) : Shape(device)
+    Line(QPoint _pointBegin, QPoint _pointEnd) : Shape()
     {
         pointBegin = _pointBegin;
         pointEnd = _pointEnd;
@@ -178,6 +178,11 @@ public:
         getQPainter().drawLine(pointBegin, pointEnd);
         getQPainter().drawText(pointBegin, shapeId);
         getQPainter().end();
+    }
+    
+    void move(int x, int y, int coord) override
+    {
+        QPoint point;
     }
 
     QPoint getPointBegin() override
