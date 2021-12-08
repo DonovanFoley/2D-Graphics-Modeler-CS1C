@@ -471,6 +471,14 @@ public:
         getQPainter().drawEllipse(xpos, ypos, width, height);
         getQPainter().end();
     }
+    
+    void move(int x, int y, int coord) override
+    {
+        xpos = x;
+        ypos = y;
+
+        getQPainter().drawEllipse(xpos, ypos, width, height);
+    }
 
     int getXCoord()
     {
@@ -539,6 +547,15 @@ public:
         getQPainter().setBrush(getBrush());
         getQPainter().drawEllipse(xpos, ypos, width, height);
         getQPainter().end();
+    }
+    
+    
+    void move(int x, int y, int coord) override
+    {
+        xpos = x;
+        ypos = y;
+
+        getQPainter().drawEllipse(xpos, ypos, width, height);
     }
 
     int getXCoord()
