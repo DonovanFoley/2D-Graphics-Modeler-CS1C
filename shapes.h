@@ -575,6 +575,26 @@ private:
 public:
 
     Text() : Shape() {}
+    Text() : Shape() {}
+    Text(int id, int tx, int ty, int bx, int by,
+         QString TextString, QColor TextColor,
+         Qt::AlignmentFlag TextAlignment,
+         QFont::Style TextFontStyle, QString TextFontFamily,
+         QFont::Weight TextFontWeight, int TextPointSize){
+        // this->id = id
+        this->tx = tx;
+        this->ty = ty;
+        this->bx = bx;
+        this->by = by;
+        //this->textbox = textbox;
+        this->TextString = TextString;
+        this->TextColor = TextColor;
+        this->TextAlignment = TextAlignment;
+        this->TextFontStyle = TextFontStyle;
+        this->TextFontFamily = TextFontFamily;
+        this->TextFontWeight = TextFontWeight;
+        this->TextPointSize = TextPointSize;
+    }
 
     Text(QPaintDevice *device) : Shape(device) {}
 
