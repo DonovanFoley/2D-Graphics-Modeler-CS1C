@@ -274,9 +274,21 @@ private:
 
 public:
 
-    Rectangle() : Shape() {}
+    Rectangle() : Shape()
+    {
+        xpos = 0;
+        ypos = 0;
+        width = 20;
+        height = 10;
+    }
 
-    Rectangle(QPaintDevice *device) : Shape(device) {}
+    Rectangle(QPaintDevice *device, int x, int y, int w, int h) : Shape(device)
+    {
+        xpos = x;
+        ypos = y;
+        width = w;
+        height = h;
+    }
 
     void setRectStart(int xCoord, int yCoord)
     {
@@ -336,9 +348,21 @@ private:
 
 public:
 
-    Square() : Shape() {}
+    Square() : Shape()
+    {
+        xpos = 0;
+        ypos = 0;
+        width = 10;
+        height = 10;
+    }
 
-    Square(QPaintDevice *device) : Shape(device) {}
+    Square(QPaintDevice *device, int x, int y, int sL) : Shape(device)
+    {
+        xpos = x;
+        ypos = y;
+        width = sL;
+        height = width;
+    }
 
     void setSquareStart(int xCoord, int yCoord)
     {
@@ -389,9 +413,21 @@ private:
 
 public:
 
-    Circle() : Shape() {}
+    Circle() : Shape()
+    {
+        xpos = 0;
+        ypos = 0;
+        height = 10;
+        width = 10;
+    }
 
-    Circle(QPaintDevice *device) : Shape(device) {}
+    Circle(QPaintDevice *device, int x, int y, int rad) : Shape(device)
+    {
+        xpos = x;
+        ypos = y;
+        width = rad;
+        height = width;
+    }
 
     void setCircleStart(int xCoord, int yCoord)
     {
@@ -442,9 +478,21 @@ private:
 
 public:
 
-    Ellipse() : Shape() {}
+    Ellipse() : Shape()
+    {
+        xpos = 0;
+        ypos = 0;
+        height = 10;
+        width = 10;
+    }
 
-    Ellipse(QPaintDevice *device) : Shape(device) {}
+    Ellipse(QPaintDevice *device, int x, int y, int h, int w) : Shape(device)
+    {
+        xpos = x;
+        ypos = y;
+        height = h;
+        width = w;
+    }
 
     void setEllipseStart(int xCoord, int yCoord)
     {
