@@ -234,7 +234,11 @@ private:
 public:
     Polygon() : Shape() {}
 
-    Polygon(QPaintDevice* device) : Shape(device) {}
+    Polygon(QPaintDevice* device, QPoint& _points) : Shape(device)
+    {
+        points.push_back(_points);
+    }
+
 
     ~Polygon() override {}
 
