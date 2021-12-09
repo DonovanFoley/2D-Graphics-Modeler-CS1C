@@ -20,7 +20,7 @@ void secDialog::on_pushButton_clicked()         //line
     int xpos2 = ui->spinBox_line_secondX->text().toInt();
     int ypos2 = ui->spinBox_line_secondY->text().toInt();
 
-    QPoint point1;
+    QPoint point1;  // btw, you can just do QPoint(xpos1, ypos1)
     QPoint point2;
     point1.setX(xpos1);
     point1.setY(ypos1);
