@@ -188,9 +188,19 @@ public:
         getQPainter().end();
     }
 
-    void move(int x, int y, int coord) override
+    void move(int x, int y, int coord, int id) override
     {
-        QPoint point;
+        QPoint point(x, y);
+        if (coord == 1)
+        {
+            pointBegin = point;
+        }
+        else if (coord == 2)
+        {
+            pointEnd = point;
+        }
+
+
     }
 
     QPoint getPointBegin() override
