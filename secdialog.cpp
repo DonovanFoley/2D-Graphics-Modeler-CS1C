@@ -34,3 +34,16 @@ void secDialog::on_pushButton_clicked()         //line
 
     ui->widget->update();
 }
+
+void secDialog::on_pushButton_move_clicked()
+{
+    int x = ui->spinBox_moveX->text().toInt();
+    int y = ui->spinBox_moveY->text().toInt();
+    int coord = ui->spinBox_moveCoordinate->text().toInt();
+    int id = ui->spinBox_move_id->text().toInt();
+
+    ui->widget->moveShape(id, coord, x, y);
+    ui->widget->update();
+
+
+}
