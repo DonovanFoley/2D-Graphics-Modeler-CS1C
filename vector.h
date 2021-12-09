@@ -40,16 +40,18 @@ public:
         }
     }
     
-   vector(const vector&& other) noexcept // move constructor
+    // originally const - changed for the sake of testing the parser
+    vector(const vector&& other) noexcept: size_v{other.size_v}, elem{other.elem}, space{other.space} // move constructor
    {
-       size_v = other.size_v;
+      /* size_v = other.size_v;
        space = other.space;
        elem = other.elem;
 
        other.size_v = 0;
        other.space = 0;
-       other.elem = nullptr;
+       other.elem = nullptr;*/
    }
+
      
    vector& operator=(const vector&& other) noexcept // move assignment
    {
