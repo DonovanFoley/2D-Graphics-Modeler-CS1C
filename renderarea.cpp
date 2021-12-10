@@ -29,11 +29,13 @@ void RenderArea::paintEvent(QPaintEvent *event)
     //Line line;
     //line.setPoints(pointA, pointB);
     //line.draw(device);
-    Rectangle rectangle;
-    rectangle.setRectStart(10, 10);
-    rectangle.setWidth(200);
-    rectangle.setHeight(100);
-    rectangle.draw(device);
+
+//    Rectangle rectangle(10, 10, 200, 100);
+//    rectangle.draw(device);
+
+//    Ellipse ellipse(50, 50, 100, 100);
+//    ellipse.draw(device);
+
 
 }
 
@@ -54,8 +56,11 @@ void RenderArea::cutShape(int inRemove)
         {
             shapeVector.erase(i);
             numShapesRenderArea--;
+
             break;
         }
+
+
     }
 
 }
@@ -66,7 +71,7 @@ void RenderArea::moveShape(int inMove, int coordMove, int x, int y)
     {
         if (shapeVector[i]->getID() == inMove)
         {
-            //shapeVector[i]->move(x, y, coordMove); //implement move in abc and classes
+            shapeVector[i]->move(x, y, coordMove, inMove); //implement move in abc and classes
             break;
         }
     }

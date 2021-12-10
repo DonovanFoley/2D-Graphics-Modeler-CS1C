@@ -17,8 +17,9 @@ class RenderArea : public QWidget
 
     //from drawing example
     void paintEvent(QPaintEvent *event);
-    QSize sizeHint() const {return QSize(1000, 500);}
-    QSize minimumSizeHint() const {return QSize(1000, 500);}
+
+    QSize sizeHint() const {return QSize(1000, 500);}           //what does sizehint do - used from renderarea example
+    QSize minimumSizeHint() const {return QSize(100, 100);}     //^^
 
     //to get shapes info
     const vector<Shape*>& getShapes() {return shapeVector;}
@@ -31,8 +32,8 @@ class RenderArea : public QWidget
 
     void cutShape(int inRemove);
     void moveShape(int inMove, int coordMove, int x, int y);
-    
-     void readShapeFile();
+
+    void readShapeFile();
 
 private:
     const QImage renderArea;

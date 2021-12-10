@@ -13,7 +13,8 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     renderarea.cpp \
-    secdialog.cpp
+    secdialog.cpp \
+    shapes.cpp
 
 HEADERS += \
     contact.h \
