@@ -15,7 +15,7 @@ public:
      // default constructor, initializes with 0 capacity
     vector() : size_v{0}, elem{nullptr}, space{0} {}
 
-     // alternate constructor, init with s capacity 
+     // alternate constructor, init with s capacity
     explicit vector(int s) : size_v{0}, elem{new T[s]}, space{s} {}
 
      // copy constructor, uses other vector's size and capacity to determine current vector
@@ -39,21 +39,21 @@ public:
             elem[i] = other.elem[i];
         }
     }
-    
+
     // originally const - changed for the sake of testing the parser
-    vector(const vector&& other) noexcept: size_v{other.size_v}, elem{other.elem}, space{other.space} // move constructor
+    vector(vector&& other) noexcept // move constructor
    {
-      /* size_v = other.size_v;
+       size_v = other.size_v;
        space = other.space;
        elem = other.elem;
 
        other.size_v = 0;
        other.space = 0;
-       other.elem = nullptr;*/
+       other.elem = nullptr;
    }
 
-     
-   vector& operator=(const vector&& other) noexcept // move assignment
+
+   vector& operator=(vector&& other) noexcept // move assignment
    {
        if (this != &other)
        {
@@ -67,8 +67,6 @@ public:
        other.size_v = 0;
        other.space = 0;
        other.elem = nullptr;
-
-       return *this;
    }
 
     ~vector()
@@ -90,8 +88,8 @@ public:
     int size() const // the current size
     {
         return size_v;
-    } 
-   
+    }
+
     int capacity() const // current available space
     {
         return space;
@@ -103,7 +101,7 @@ public:
 
         // if the new capacity is larger than old vector or the number of elements
         // in old vector is less than the new capacity, can copy over elements normally
-        if (space < newsize || size_v < newsize)
+        if (newsize > space)
         {
             for (int i = 0; i < size_v; i++)
             {
@@ -112,48 +110,55 @@ public:
         }
         // if number of elements in old vector is greater than the new capacity
         // i.e. more elements than space, cannot copy over elements normally
-        else if (space > newsize && size_v > newsize)
+        else
         {
-            size_v = newsize; // size_v is set to newsize so that we do not copy over more elements than new capacity
+            size_v = 0; // size_v is set to newsize so that we do not copy over more elements than new capacity
 
             // copy elements in vector up to the new capacity
-            for (int i = 0; i < size_v; i++)
+            for (int i = 0; i < newsize; i++)
             {
                 temp[i] = elem[i];
+                if (elem[i])
+                {
+                    size_v++;
+                }
             }
         }
-        
+
+        space = newsize;
         delete[] elem; // delete old elem
         elem = temp; // elem is now a vector with new capacity
-        space = newsize; // assign newsize to space
     }
 
     void push_back(T val) // add element
     {
-        // check to see whether the vector has room for a new element
-        if (size_v + 1 > space)
+        //check to see whether the vector has room for a new element
+        if (size_v < space)
         {
-            reserve(1); // if not call reserve to increase vector's capacity by 1
+            elem[size_v] = val; // insert val into vector
+            size_v++; // increment size of vector
         }
-
-        elem[size_v] = val; // insert val into vector
-        size_v++; // increment size of vector
     }
 
     void reserve(int newalloc) // get more space
     {
-        space = space + newalloc; // increase capacity by newalloc
-
-        T* temp = new T[space]; // create temp vector with new capacity
-
-        // copy elements into temp vector
-        for (int i = 0; i < size_v; i++)
+        if (newalloc != space)
         {
-            temp[i] = elem[i];
-        }
+            if (newalloc > space)
+            {
+                space = newalloc;
+                T* temp = new T[space]; // create temp vector with new capacity
 
-        delete[] elem; // delete old elem
-        elem = temp; // elem is now a vector with updated capacity
+                // copy elements into temp vector
+                for (int i = 0; i < size_v; i++)
+                {
+                    temp[i] = elem[i];
+                }
+
+                delete[] elem; // delete old elem
+                elem = temp; // elem is now a vector with updated capacity
+            }
+        }
     }
 
     using iterator = T*;
@@ -196,42 +201,54 @@ public:
 
     iterator insert(iterator p, const T& v)// insert a new element v before p
     {
-        // check if there is space
-        if (size_v != space)
-        {
-            iterator index = p - 1; // index is 1 place before p
-            ++size_v; // increment size since we are inserting an element
+        T temp;
+        T temp2;
+        int diff = &elem[space - 1] - p;
 
-            // set pos to be the final element and loop through, shifting
-            // all elements from the index upwards by 1
-            for (iterator pos = end() - 1; pos != index; --pos)
+        if (size_v + 1 <= space)
+        {
+            temp = *p;
+            for (int i = 0; i < diff; i++)
             {
-                *pos = *(pos - 1); // copy element one position to the right
+                temp2 = *(p + 1);
+                p = p + 1;
+                *p = temp;
+                temp = temp2;
             }
 
-            *index = v; // insert element at the index
+            for (int revert = 0; revert < diff; revert++)
+            {
+                p = p + 1;
+            }
+            *p = v;
+            size_v++;
         }
-
         return p;
     }
 
     iterator erase(iterator p) // remove element pointed to by p
     {
-        if (p == end())
-        {
-            return p;
-        }
+        T temp;
+        int diff = &elem[size_v - 1] - p;
 
-        for (iterator pos = p + 1; pos != end(); ++pos)
+        *p = 0;
+        for(int i = 0; i < diff; i++)
         {
-            *(pos - 1) = *pos; // copy element one position to the left
+            temp = *(p + 1);
+            *p = temp;
+            p = p + 1;
         }
+        *p = 0;
 
-        // delete (end() - 1)
-        --size_v;
+        for (int revert = 0; revert < diff; revert++)
+        {
+            p = p - 1;
+        }
+        size_v--;
+
         return p;
     }
 };
-}   // sdog namespace 
+}   // sdog namespace
 
 #endif
