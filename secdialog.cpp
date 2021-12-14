@@ -47,3 +47,9 @@ void secDialog::on_pushButton_move_clicked()
 
 
 }
+
+void secDialog::on_actionContact_Info_triggered() //Show contact info
+{
+    uiContact = new Contact(this);
+    uiContact->show();
+}
