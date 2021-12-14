@@ -2,6 +2,7 @@
 #define SECDIALOG_H
 
 #include <QMainWindow>
+#include "contact.h"
 
 namespace Ui {
 class secDialog;
@@ -17,9 +18,11 @@ public:
 
 private slots:
     void on_pushButton_clicked();
+    void on_actionContact_Info_triggered();
 
 private:
     Ui::secDialog *ui;
+    Contact *uiContact;
 };
 
 #endif // SECDIALOG_H
